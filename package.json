@@ -5,7 +5,8 @@
   "scripts": {
     "test:login": "wdio run wdio.conf.js --spec ./specs/login.e2e.spec.js",
     "test:contract:web": "wdio run wdio.conf.js --spec ./specs/contract-photo-signature.e2e.spec.js",
-    "test:contract:hybrid": "wdio run wdio.conf.js --spec ./specs/contract-photo-signature.hybrid.e2e.spec.js"
+    "test:contract:hybrid": "wdio run wdio.conf.js --spec ./specs/contract-photo-signature.hybrid.e2e.spec.js",
+    "test:sell:car-selection": "wdio run wdio.conf.js --spec ./specs/sell-car-selection.e2e.spec.js"
   },
   "devDependencies": {
     "@wdio/cli": "^9.18.0",
