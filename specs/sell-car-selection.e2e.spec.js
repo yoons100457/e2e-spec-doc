@@ -1,9 +1,24 @@
 describe('rencarform sell car selection flow', () => {
-  it('goes from home to sell-my-car vehicle selection and selects 5 vehicles', async () => {
+  async function ensureOnHome() {
     const homeTab = await $('#HomePage_Tabs_item_dispatchStatus_0');
-    await homeTab.waitForExist();
-    await homeTab.scrollIntoView({ block: 'center' });
-    await homeTab.waitForDisplayed();
+    if (await homeTab.isExisting()) {
+      await homeTab.scrollIntoView({ block: 'center' });
+      await homeTab.waitForDisplayed();
+      return;
+    }
+
+    const appState = await browser.execute(() => ({
+      href: window.location.href,
+      path: window.location.pathname,
+      title: document.title,
+      text: document.body?.innerText?.slice(0, 500) || ''
+    }));
+
+    throw new Error(`Expected app to start on /home, but it did not. State=${JSON.stringify(appState)}`);
+  }
+
+  it('goes from home to sell-my-car vehicle selection and selects 5 vehicles', async () => {
+    await ensureOnHome();
 
     const moreTab = await $('#bottomTabNavViewItem_더보기');
     await moreTab.waitForExist();
