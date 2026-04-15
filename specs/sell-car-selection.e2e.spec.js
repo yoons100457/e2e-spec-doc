@@ -16,40 +16,8 @@ describe('rencarform sell car selection flow', () => {
       return;
     }
 
-    const menuPath = await browser.execute(() => window.location.pathname);
-    if (menuPath === '/menu') {
-      const partnerTab = await $('#bottomTabNavViewItem_파트너');
-      if (await partnerTab.isExisting()) {
-        await partnerTab.scrollIntoView({ block: 'center' });
-        await partnerTab.waitForDisplayed();
-        await partnerTab.click();
-        await browser.pause(1000);
-      }
-
-      const homeTabFromMenu = await $('#HomePage_Tabs_item_dispatchStatus_0');
-      if (await homeTabFromMenu.isExisting()) {
-        await homeTabFromMenu.scrollIntoView({ block: 'center' });
-        await homeTabFromMenu.waitForDisplayed();
-        return;
-      }
-    }
-
-    try {
-      await driver.execute('mobile: activateApp', { appId: 'com.rencarform' });
-    } catch {
-      // no-op, fallback to direct checks below
-    }
-    await browser.pause(1500);
-
-    const homeTabAfterActivate = await $('#HomePage_Tabs_item_dispatchStatus_0');
-    if (await homeTabAfterActivate.isExisting()) {
-      await homeTabAfterActivate.scrollIntoView({ block: 'center' });
-      await homeTabAfterActivate.waitForDisplayed();
-      return;
-    }
-
     const appState = await getAppState();
-    throw new Error(`Could not recover app to /home before test start. State=${JSON.stringify(appState)}`);
+    throw new Error(`Expected validated start state /home, but app was elsewhere. State=${JSON.stringify(appState)}`);
   }
 
   it('goes from home to sell-my-car vehicle selection and selects 5 vehicles', async () => {
