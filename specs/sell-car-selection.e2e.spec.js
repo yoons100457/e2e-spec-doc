@@ -87,7 +87,7 @@ describe('rencarform sell car selection flow', () => {
     await vehicleSelectTitle.waitForExist();
     await vehicleSelectTitle.waitForDisplayed();
 
-    const completeButton = await $('#차량 선택 완료');
+    const completeButton = await $('[id="차량 선택 완료"]');
     await completeButton.waitForExist();
     await completeButton.scrollIntoView({ block: 'center' });
     await completeButton.waitForDisplayed();
